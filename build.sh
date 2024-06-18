@@ -99,6 +99,8 @@ elif [ "$OMR_TARGET" = "r5s" ]; then
 	OMR_REAL_TARGET="aarch64_generic"
 elif [ "$OMR_TARGET" = "ubnt-erx" ]; then
 	OMR_REAL_TARGET="mipsel_24kc"
+elif [ "$OMR_TARGET" = "linksys_e8450_ubi" ]; then
+    OMR_REAL_TARGET="aarch64_cortex-a53"
 else
 	OMR_REAL_TARGET=${OMR_TARGET}
 fi
@@ -688,6 +690,9 @@ if [ "$OMR_KERNEL" = "5.15" ]; then
 	echo "Set to kernel 5.15 for ipq40xx"
 	find target/linux/ipq40xx -type f -name Makefile -exec sed -i 's%KERNEL_PATCHVER:=5.10%KERNEL_PATCHVER:=5.15%g' {} \;
 	echo "Done"
+	echo "Set to kernel 5.15 for mediatek arch (Linksys E8450 UBI)"
+    find target/linux/mediatek -type f -name Makefile -exec sed -i 's%KERNEL_PATCHVER:=5.10%KERNEL_PATCHVER:=5.15%g' {} \;
+    echo "Done"
 	#rm -rf target/linux/generic/files/drivers/net/phy/b53
 	rm -f target/linux/bcm27xx/modules/sound.mk
 	echo "CONFIG_DEVEL=y" >> ".config"
